@@ -1,0 +1,193 @@
+\documentclass[9pt,t,aspectratio=169]{beamer}
+\usetheme[white]{Wisconsin}
+\usepackage[utf8]{inputenc}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+\setbeamerfont{title}{size=\LARGE}
+\setbeamerfont{subtitle}{size=\Large}
+\setbeamerfont{block body}{size=\footnotesize}
+\setbeamerfont{author}{size=\LARGE}
+\setbeamerfont{date}{size=\Large}
+\setbeamerfont{institute}{size=\large}
+\setlength{\leftmargini}{0pt}
+
+%subcaptions
+\usepackage{subcaption}
+% \captionsetup[subfigure]{labelformat=empty} % turn off labeling figures
+
+% turn off Figure in captions
+\usepackage{caption}
+% \captionsetup[figure]{labelformat=empty}
+
+\newcommand{\QOR}{\qquad \text{OR} \qquad}
+\newcommand{\QAND}{\qquad \text{AND} \qquad}
+\newcommand{\QTHUS}{\qquad \text{THUS} \qquad}
+\newcommand{\QTHEN}{\qquad \text{THEN} \qquad}
+\newcommand{\QWITH}{\qquad \text{WITH} \qquad}
+\newcommand{\QFOR}{\qquad \text{FOR} \qquad}
+\newcommand{\QSO}{\qquad \text{SO} \qquad}
+\newcommand{\QWHERE}{\qquad \text{WHERE} \qquad}
+\newcommand{\LINE}{\par\noindent\rule{\textwidth}{0.4pt}\par}
+\newcommand{\toinf}{\rightarrow\infty}
+\newcommand{\tozero}{\rightarrow0}
+\newcommand{\qeq}{\overset{?}{=}}
+\newcommand{\ceq}{\overset{\checkmark}{=}}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\keff}{$k_{e\!f\!f}$}
+
+
+% table packages
+\usepackage{booktabs}
+
+% Roman Numerals
+\newcommand{\rom}[1]{\expandafter\uppercase{\Romannumeral #1\relax}}
+
+% hypersetup
+\usepackage{hyperref}
+\hypersetup{colorlinks,
+            linkcolor = black,
+            citecolor = black,
+            urlcolor = cyan
+}
+
+
+\def\brac#1{\{#1\}}
+\def\Brac#1{\big\{#1\big\}}
+\def\BRAC#1{\bigg\{#1\bigg\}}
+\def\angbrac#1{\langle#1\rangle}
+\def\Angbrac#1{\big\langle#1\big\rangle}
+\def\ANGBRAC#1{\bigg\langle#1\bigg\rangle}
+
+% % Transitional slides between sections
+% \AtBeginSection[]
+% {
+%     \begin{frame}
+%         \frametitle{Table of Contents}
+%         \tableofcontents[currentsection]
+%     \end{frame}
+% }
+
+
+% Bibliography
+\usepackage[sorting=none]{biblatex} %Imports biblatex package and cites in order of appearance
+\addbibresource{physor2024_pres.bib} %Import the bibliography file
+% make all font colors white
+\setbeamercolor{bibliography item}{fg=black}
+\setbeamercolor{bibliography entry author}{fg=black}
+\setbeamercolor{bibliography entry title}{fg=black}
+\setbeamercolor{bibliography entry location}{fg=black}
+\setbeamercolor{bibliography entry note}{fg=black}
+% adds numeric labels linked to bib entries
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+% eliminate header within an environment
+\makeatletter
+    \newenvironment{withoutheadline}{
+       \setbeamertemplate{headline}[default]
+       \def\beamer@entrycode{\vspace*{-\headheight}}
+    }{}
+\makeatother
+
+% appendix renumbering
+\usepackage{appendixnumberbeamer}
+% frame breaks with same title
+\setbeamertemplate{frametitle continuation}[from second][]
+
+\title{Verification of the Cardinal Multiphysics Solver}
+\subtitle{for 1-D Coupled Heat Transfer and Neutron Transport}
+\author{\vspace*{-0.45cm}Lewis I. Gross\textsuperscript{1}, Patrick Shriwise\textsuperscript{2,1}, Benjamin Lindley\textsuperscript{1} and Paul P.H. Wilson\textsuperscript{1}}
+\institute{University of Wisconsin-Madison\textsuperscript{1}, Argonne National Lab\textsuperscript{2} }
+\date{\vspace*{-0.25cm}April 24, 2024}
+%%----------------------------------------------------------------------------%%
+\begin{document}
+
+\begin{withoutheadline}
+\begin{frame}[plain] % the plain makes the first frame look good
+    \maketitle
+\end{frame}
+\end{withoutheadline}
+
+\author{Lewis Gross, Patrick Shriwise, Ben Lindley, and Paul Wilson} % reset author so affiliations don't show up in footer
+%%----------------------------------------------------------------------------%%
+%% Overview
+%%----------------------------------------------------------------------------%%
+\begin{withoutheadline}
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+\end{withoutheadline}
+
+
+%%----------------------------------------------------------------------------%%
+%% Section 1
+%%----------------------------------------------------------------------------%%
+\section{Introduction}
+\begin{frame}{Title}
+    \begin{itemize}
+        \item
+    \end{itemize}
+\end{frame}
+
+%%----------------------------------------------------------------------------%%
+%% Section 2
+%%----------------------------------------------------------------------------%%
+\section{Sec 2}
+\begin{frame}{Eigenvalue comparisons across each spatial discretization}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{@{}ccc@{}}
+            \toprule
+            Resolution &  \keff & (numerical - analytical) [pcm]\\
+            \midrule
+            analytical & 0.29557 & - \\
+            \midrule
+            5    & 0.29624 $\pm$ 0.00003 & \phantom{-}67 $\pm$ 3 \\
+            10   & 0.29581 $\pm$ 0.00004 & \phantom{-}24 $\pm$ 4 \\
+            25   & 0.29563 $\pm$ 0.00004 & \phantom{-}6  $\pm$ 4 \\
+            50   & 0.29553 $\pm$ 0.00004 &           -4  $\pm$ 4 \\
+            100  & 0.29557 $\pm$ 0.00003 & \phantom{-}0  $\pm$ 3 \\
+            250  & 0.29561 $\pm$ 0.00004 & \phantom{-}4  $\pm$ 4 \\
+            500  & 0.29561 $\pm$ 0.00004 & \phantom{-}4  $\pm$ 4 \\
+            1000 & 0.29558 $\pm$ 0.00004 & \phantom{-}1  $\pm$ 4 \\
+        \bottomrule
+        \end{tabular}
+    \end{table}
+    \begin{itemize}
+        \item \keff is a system-wide parameter, so it converges much faster than flux and is not as dependent on number of cells.
+    \end{itemize}
+\end{frame}
+
+%%----------------------------------------------------------------------------%%`'
+%% Bibliography
+%%----------------------------------------------------------------------------%%
+
+\begin{withoutheadline}
+    \begin{frame}{Acknowledgements}
+        \begin{itemize}
+            \item The first author was supported in part by the US Nuclear Regulatory Commission's Graduate Fellowship Program administered by the University of Wisconsin-Madison.
+            \item The Center for High Throughput Computing at the University of Wisconsin - Madison
+            \item Co-authors: Patrick Shriwise, Ben Lindley and Paul P.H.~Wilson.
+            \item OpenMC, Cardinal, and MOOSE teams!
+        \end{itemize}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.45\linewidth]{figures/openmc_logo.png}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.45\linewidth]{figures/cardinal_logo.png}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.45\linewidth]{figures/moose_logo.png}
+        \end{figure}
+    \end{frame}
+\end{withoutheadline}
+
+\begin{withoutheadline}
+    \begin{frame}[allowframebreaks]{Bibliography}
+        \printbibliography
+    \end{frame}
+\end{withoutheadline}
+
+
+\end{document}
