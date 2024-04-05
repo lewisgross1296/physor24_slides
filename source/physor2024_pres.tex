@@ -92,8 +92,7 @@
 % frame breaks with same title
 \setbeamertemplate{frametitle continuation}[from second][]
 
-\title{Verification of the Cardinal Multiphysics Solver}
-\subtitle{for 1-D Coupled Heat Transfer and Neutron Transport}
+\title{Exploring Effects of Homogenization on an OpenMC Depletion Analysis of a TRISO Fueled, Helium Cooled Microreactor}
 \author{\vspace*{-0.45cm}Lewis I. Gross\textsuperscript{1}, Patrick Shriwise\textsuperscript{2,1}, Benjamin Lindley\textsuperscript{1} and Paul P.H. Wilson\textsuperscript{1}}
 \institute{University of Wisconsin-Madison\textsuperscript{1}, Argonne National Lab\textsuperscript{2} }
 \date{\vspace*{-0.25cm}April 24, 2024}
@@ -120,8 +119,29 @@
 %%----------------------------------------------------------------------------%%
 %% Section 1
 %%----------------------------------------------------------------------------%%
-\section{Introduction}
-\begin{frame}{Title}
+\section{Virtual Test Bed Gas-Cooled Microreactor}
+\begin{frame}{Microreactors}
+    \begin{itemize}
+        \item
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Virtual Test Bed}
+    \begin{itemize}
+        \item
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Virtual Test Bed Gas Cooled Microreactor}
+    \begin{itemize}
+        \item Existing work/simulations
+        \item TRISO modeling challenges
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Goal of this work}
     \begin{itemize}
         \item
     \end{itemize}
@@ -130,31 +150,67 @@
 %%----------------------------------------------------------------------------%%
 %% Section 2
 %%----------------------------------------------------------------------------%%
-\section{Sec 2}
-\begin{frame}{Eigenvalue comparisons across each spatial discretization}
-    \begin{table}[H]
-        \centering
-        \begin{tabular}{@{}ccc@{}}
-            \toprule
-            Resolution &  \keff & (numerical - analytical) [pcm]\\
-            \midrule
-            analytical & 0.29557 & - \\
-            \midrule
-            5    & 0.29624 $\pm$ 0.00003 & \phantom{-}67 $\pm$ 3 \\
-            10   & 0.29581 $\pm$ 0.00004 & \phantom{-}24 $\pm$ 4 \\
-            25   & 0.29563 $\pm$ 0.00004 & \phantom{-}6  $\pm$ 4 \\
-            50   & 0.29553 $\pm$ 0.00004 &           -4  $\pm$ 4 \\
-            100  & 0.29557 $\pm$ 0.00003 & \phantom{-}0  $\pm$ 3 \\
-            250  & 0.29561 $\pm$ 0.00004 & \phantom{-}4  $\pm$ 4 \\
-            500  & 0.29561 $\pm$ 0.00004 & \phantom{-}4  $\pm$ 4 \\
-            1000 & 0.29558 $\pm$ 0.00004 & \phantom{-}1  $\pm$ 4 \\
-        \bottomrule
-        \end{tabular}
-    \end{table}
+\section{OpenMC Model}
+
+\begin{frame}{TRISO particles}
     \begin{itemize}
-        \item \keff is a system-wide parameter, so it converges much faster than flux and is not as dependent on number of cells.
+        \item
     \end{itemize}
 \end{frame}
+
+\begin{frame}{Homogenization}
+    \begin{itemize}
+        \item Partial vs Full
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Depletion Simulation Definitions}
+    \begin{itemize}
+        \item
+    \end{itemize}
+\end{frame}
+
+%%----------------------------------------------------------------------------%%
+%% Section 3
+%%----------------------------------------------------------------------------%%
+\section{Results and Discussion}
+
+\begin{frame}{Eigenvalue comparisons across each spatial discretization}
+    \begin{itemize}
+        \item ratios vs burnup
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Eigenvalue comparisons across each spatial discretization}
+    \begin{itemize}
+        \item average delta rhos
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Eigenvalue comparisons across each spatial discretization}
+    \begin{itemize}
+        \item isotopics
+    \end{itemize}
+\end{frame}
+
+%%----------------------------------------------------------------------------%%
+%% Section 4
+%%----------------------------------------------------------------------------%%
+\section{Next Steps}
+\begin{frame}{Other Homogenizations}
+    \begin{itemize}
+        \item
+    \end{itemize}
+\end{frame}
+
+\section{Next Steps}
+\begin{frame}{Full core model and multiphysics}
+    \begin{itemize}
+        \item
+    \end{itemize}
+\end{frame}
+
 
 %%----------------------------------------------------------------------------%%`'
 %% Bibliography
@@ -166,19 +222,11 @@
             \item The first author was supported in part by the US Nuclear Regulatory Commission's Graduate Fellowship Program administered by the University of Wisconsin-Madison.
             \item The Center for High Throughput Computing at the University of Wisconsin - Madison
             \item Co-authors: Patrick Shriwise, Ben Lindley and Paul P.H.~Wilson.
-            \item OpenMC, Cardinal, and MOOSE teams!
+            \item OpenMC teams!
         \end{itemize}
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.45\linewidth]{figures/openmc_logo.png}
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.45\linewidth]{figures/cardinal_logo.png}
-        \end{figure}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.45\linewidth]{figures/moose_logo.png}
         \end{figure}
     \end{frame}
 \end{withoutheadline}
@@ -189,5 +237,16 @@
     \end{frame}
 \end{withoutheadline}
 
+\begin{withoutheadline}
+    \begin{frame}{Open Source Projects}
+        \begin{itemize}
+            \item OpenMC website: \href{https://openmc.org/}{https://openmc.org/}
+            \item OpenMC repository: \href{https://github.com/openmc-dev/openmc}{https://github.com/openmc-dev/openmc}
+            \item VTB: \href{https://mooseframework.inl.gov/virtual_test_bed/}{https://mooseframework.inl.gov/virtual\_test\_bed/}
+            \item VTB repository: \href{https://github.com/idaholab/virtual_test_bed}{https://github.com/idaholab/virtual\_test\_bed}
+            \item Add me on LinkedIn (\href{https://www.linkedin.com/in/lewisgross1296}{lewisgross1296}) and GitHub (\href{https://github.com/lewisgross1296}{lewisgross1296})!
+        \end{itemize}
+    \end{frame}
+\end{withoutheadline}
 
 \end{document}
