@@ -92,7 +92,8 @@
 % frame breaks with same title
 \setbeamertemplate{frametitle continuation}[from second][]
 
-\title{Exploring Effects of Homogenization on an OpenMC Depletion Analysis of a TRISO Fueled, Helium Cooled Microreactor}
+\title{Exploring Effects of Homogenization on an OpenMC Depletion Analysis}
+\subtitle{of a TRISO Fueled, Helium Cooled Microreactor}
 \author{\vspace*{-0.45cm}Lewis I. Gross\textsuperscript{1}, Patrick Shriwise\textsuperscript{2,1}, Benjamin Lindley\textsuperscript{1} and Paul P.H. Wilson\textsuperscript{1}}
 \institute{University of Wisconsin-Madison\textsuperscript{1}, Argonne National Lab\textsuperscript{2} }
 \date{\vspace*{-0.25cm}April 24, 2024}
@@ -120,23 +121,30 @@
 %% Section 1
 %%----------------------------------------------------------------------------%%
 \section{Virtual Test Bed Gas-Cooled Microreactor}
-\begin{frame}{Microreactors}
-    \begin{itemize}
-        \item
-    \end{itemize}
+\hypersetup{citecolor=white}
+\begin{frame}{Microreactors \cite{INL_MR}}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.95\linewidth]{figures/INL_MR.png}
+    \end{figure}
 \end{frame}
 
-
-\begin{frame}{Virtual Test Bed}
-    \begin{itemize}
-        \item
-    \end{itemize}
+\begin{frame}{Virtual Test Bed \cite{vtb2023}}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\linewidth]{figures/nric_logo.png}
+    \end{figure}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\linewidth]{figures/NEAMS.png}
+    \end{figure}
 \end{frame}
-
+\hypersetup{citecolor=black}
 
 \begin{frame}{Virtual Test Bed Gas Cooled Microreactor}
     \begin{itemize}
         \item Existing work/simulations
+        \item First OpenMC Model of the VTB GCMR, plans to add this model to the VTB this summer
         \item TRISO modeling challenges
     \end{itemize}
 \end{frame}
@@ -154,14 +162,16 @@
 
 \begin{frame}{TRISO particles}
     \begin{itemize}
-        \item
+        \item Image showing the explicit TRISO and packing into fuel compact
+        \item Image showing the kernel only
+        \item Explain how the homogenization works (total fuel atoms preserved)
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Homogenization}
-    \begin{itemize}
-        \item Partial vs Full
-    \end{itemize}
+\begin{frame}{Slice Plots}
+    \begin{figure}
+        \includegraphics[height=0.8\textheight]{figures/gcmr_slice.png}
+    \end{figure}
 \end{frame}
 
 
@@ -198,13 +208,12 @@
 %% Section 4
 %%----------------------------------------------------------------------------%%
 \section{Next Steps}
-\begin{frame}{Other Homogenizations}
+\begin{frame}{Two-layer TRISO Homogenization}
     \begin{itemize}
         \item
     \end{itemize}
 \end{frame}
 
-\section{Next Steps}
 \begin{frame}{Full core model and multiphysics}
     \begin{itemize}
         \item
@@ -221,12 +230,16 @@
         \begin{itemize}
             \item The first author was supported in part by the US Nuclear Regulatory Commission's Graduate Fellowship Program administered by the University of Wisconsin-Madison.
             \item The Center for High Throughput Computing at the University of Wisconsin - Madison
-            \item Co-authors: Patrick Shriwise, Ben Lindley and Paul P.H.~Wilson.
-            \item OpenMC teams!
+            \item OpenMC team!
+            \item Co-authors: Patrick Shriwise, Benjamin Lindley and Paul P.H.~Wilson.
         \end{itemize}
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.45\linewidth]{figures/openmc_logo.png}
+            \includegraphics[height=0.3\textheight]{figures/openmc_logo.png}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[height=0.3\textheight]{figures/CHTC.png}
         \end{figure}
     \end{frame}
 \end{withoutheadline}
