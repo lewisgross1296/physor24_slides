@@ -33,7 +33,7 @@
 \newcommand{\ceq}{\overset{\checkmark}{=}}
 \renewcommand{\epsilon}{\varepsilon}
 \newcommand{\keff}{$k_{e\!f\!f}$}
-
+\newcommand{\kinf}{$k_{inf}$}
 
 % table packages
 \usepackage{booktabs}
@@ -132,7 +132,7 @@
 \begin{frame}{Virtual Test Bed \cite{vtb2023}}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\linewidth]{figures/nric_logo.png}
+        \includegraphics[width=0.65\linewidth]{figures/nric_logo.png}
     \end{figure}
     \begin{figure}
         \centering
@@ -141,17 +141,52 @@
 \end{frame}
 \hypersetup{citecolor=black}
 
+\begin{frame}{TRISO Fuel Particles}
+    \begin{minipage}[t]{0.45\linewidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.9\linewidth]{figures/TRISO_diagram_Zhou_Tang.png}
+            \caption{Layers from innermost to outermost: fuel kernel, buffer, Inner PyC, SiC,Outer PyC \cite{zhou_tang}.}
+        \end{figure}
+    \end{minipage}
+    \hfill%
+    \begin{minipage}[t]{0.45\linewidth}
+        \begin{itemize}
+            \item Common fuel for advanced reactors
+            \item UCO fuel kernel radus 212.5 microns, outer radius 427.5 microns
+            \item Very good thermal properties, melting significantly higher than operational temperatures (quantify?)
+            \item Either packed into graphite compacts or into spherical pebbles for PBRs
+            \item TRISO modeling challenges
+        \end{itemize}
+    \end{minipage}
+\end{frame}
+
 \begin{frame}{Virtual Test Bed Gas Cooled Microreactor}
     \begin{itemize}
-        \item Existing work/simulations
-        \item First OpenMC Model of the VTB GCMR, plans to add this model to the VTB this summer
-        \item TRISO modeling challenges
+        \item Existing VTB GCMR simulations
+        \begin{itemize}
+            \item Preliminary multiphysics models: Griffin-BISON-SAM \cite{Abdelhameed-ANS-2022,Stauff-preliminary-applications-2021,Stauff-applications-2022} 
+            \item Dynamic multiphysics simulations: flow blockage and Reactivity Insertion Accident \cite{HF_MRs_ANL}
+            \item Balance of plant 1D thermal hydraulic simulation \cite{Duchnowski_plant_balance_2022}
+        \end{itemize}
+        \item This work presents the first published OpenMC Model of the VTB GCMR
+        \begin{itemize}
+            \item Plans to add this infinte-assembly model to the VTB this summer
+        \end{itemize}
+        \item For a full core model, it will be prohibitively expensive to model every TRISO explicitly
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Goal of this work}
+\begin{frame}{Research Goal}
     \begin{itemize}
-        \item
+        \item \textbf{What degree of explicitness is needed to represent TRISO for a full-core model of the GCMR?}
+        \item To answer this question, varying degrees of homogenization were used in an infinite-assembly depletion model, computing \kinf as a function of burnup up to 29 GWday/tonne-U.
+        \item The two strategies were ``\textbf{kernel only}'' and ``\textbf{full volume}'' homogenization
+        \item Kernel only homogenization takes all non fuel layers of the TRISO and homogenizes them, by volume fraction, into the compacts' background graphite and then packs UCO kernels into the background
+        \begin{itemize}
+            \item Keeps the same original kernel positions as fully explicit
+        \end{itemize}
+        \item Full volume homogenization makes one material per compact with the all the individual components mixed by their original volume fraction in the fully explicit case.
     \end{itemize}
 \end{frame}
 
@@ -159,14 +194,6 @@
 %% Section 2
 %%----------------------------------------------------------------------------%%
 \section{OpenMC Model}
-
-\begin{frame}{TRISO particles}
-    \begin{itemize}
-        \item Image showing the explicit TRISO and packing into fuel compact
-        \item Image showing the kernel only
-        \item Explain how the homogenization works (total fuel atoms preserved)
-    \end{itemize}
-\end{frame}
 
 \begin{frame}{Slice Plots}
     \begin{figure}
@@ -231,7 +258,7 @@
             \item The first author was supported in part by the US Nuclear Regulatory Commission's Graduate Fellowship Program administered by the University of Wisconsin-Madison.
             \item The Center for High Throughput Computing at the University of Wisconsin - Madison
             \item OpenMC team!
-            \item Co-authors: Patrick Shriwise, Benjamin Lindley and Paul P.H.~Wilson.
+            \item Co-authors: Patrick Shriwise, Benjamin Lindley, and Paul P.H.~Wilson.
         \end{itemize}
         \begin{figure}[H]
             \centering
