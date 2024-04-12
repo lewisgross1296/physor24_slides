@@ -10,9 +10,12 @@
 \setbeamerfont{institute}{size=\large}
 \setlength{\leftmargini}{0pt}
 
+
+\usepackage{caption}
+\captionsetup[figure]{labelformat=empty} % turn off labeling caption figures
 %subcaptions
 \usepackage{subcaption}
-% \captionsetup[subfigure]{labelformat=empty} % turn off labeling figures
+\captionsetup[subfigure]{labelformat=empty} % turn off labeling subcaption figures
 
 % turn off Figure in captions
 \usepackage{caption}
@@ -57,14 +60,14 @@
 \def\Angbrac#1{\big\langle#1\big\rangle}
 \def\ANGBRAC#1{\bigg\langle#1\bigg\rangle}
 
-% % Transitional slides between sections
-% \AtBeginSection[]
-% {
-%     \begin{frame}
-%         \frametitle{Table of Contents}
-%         \tableofcontents[currentsection]
-%     \end{frame}
-% }
+% Transitional slides between sections
+\AtBeginSection[]
+{
+    \begin{frame}
+        \frametitle{Table of Contents}
+        \tableofcontents[currentsection]
+    \end{frame}
+}
 
 
 % Bibliography
@@ -153,40 +156,58 @@
     \begin{minipage}[t]{0.45\linewidth}
         \begin{itemize}
             \item Common fuel for advanced reactors
-            \item UCO fuel kernel radus 212.5 microns, outer radius 427.5 microns
-            \item Very good thermal properties, melting significantly higher than operational temperatures (quantify?)
+            \item UCO fuel kernel radius 212.5 microns
+            \item Outer PyC radius 427.5 microns
+            \item Very good thermal properties, melting significantly higher than operational temperatures (quantify/source?)
+            \item Encapsulates fission products well
             \item Either packed into graphite compacts or into spherical pebbles for PBRs
             \item TRISO modeling challenges
+            \begin{itemize}
+                \item Many surfaces per TRISO
+                \item Many TRISOs per reactor
+            \end{itemize}
         \end{itemize}
     \end{minipage}
 \end{frame}
 
 \begin{frame}{Virtual Test Bed Gas Cooled Microreactor}
-    \begin{itemize}
-        \item Existing VTB GCMR simulations
+    \begin{minipage}[t]{0.45\linewidth}
         \begin{itemize}
-            \item Preliminary multiphysics models: Griffin-BISON-SAM \cite{Abdelhameed-ANS-2022,Stauff-preliminary-applications-2021,Stauff-applications-2022} 
-            \item Dynamic multiphysics simulations: flow blockage and Reactivity Insertion Accident \cite{HF_MRs_ANL}
-            \item Balance of plant 1D thermal hydraulic simulation \cite{Duchnowski_plant_balance_2022}
+            \item Existing VTB GCMR simulations
+            \begin{itemize}
+                \item Preliminary multiphysics models: Griffin-BISON-SAM \cite{Abdelhameed-ANS-2022,Stauff-preliminary-applications-2021,Stauff-applications-2022}
+                \item Dynamic multiphysics simulations: flow blockage and Reactivity Insertion Accident \cite{HF_MRs_ANL}
+                \item Balance of plant 1D thermal hydraulic simulation \cite{Duchnowski_plant_balance_2022}
+            \end{itemize}
+            \item This work presents the first published OpenMC Model of the VTB GCMR
+            \begin{itemize}
+                \item Plans to add this infinte-assembly model to the VTB this summer
+            \end{itemize}
+            \item For a full core model, it will be prohibitively expensive to model every TRISO explicitly
         \end{itemize}
-        \item This work presents the first published OpenMC Model of the VTB GCMR
-        \begin{itemize}
-            \item Plans to add this infinte-assembly model to the VTB this summer
-        \end{itemize}
-        \item For a full core model, it will be prohibitively expensive to model every TRISO explicitly
-    \end{itemize}
+    \end{minipage}
+    \hfill%
+    \begin{minipage}[t]{0.45\linewidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.9\linewidth]{figures/gcmr_preliminary_mutliapps.png}
+            \caption{MultiApp hierarchy of preliminary work \cite{Abdelhameed-ANS-2022}.}
+        \end{figure}
+    \end{minipage}
+
 \end{frame}
 
 \begin{frame}{Research Goal}
     \begin{itemize}
-        \item \textbf{What degree of explicitness is needed to represent TRISO for a full-core model of the GCMR?}
-        \item To answer this question, varying degrees of homogenization were used in an infinite-assembly depletion model, computing \kinf as a function of burnup up to 29 GWday/tonne-U.
-        \item The two strategies were ``\textbf{kernel only}'' and ``\textbf{full volume}'' homogenization
-        \item Kernel only homogenization takes all non fuel layers of the TRISO and homogenizes them, by volume fraction, into the compacts' background graphite and then packs UCO kernels into the background
+        \item \textbf{What degree of explicitness is required to represent TRISO for a full-core model of the GCMR?}
+        \item To answer this question, varying degrees of homogenization were used in an infinite-assembly depletion model, computing \kinf~as a function of burnup up to 29 GWday/tonne-U.
+        \item Two homogenization strategies: ``\textbf{kernel only}'' and ``\textbf{full volume}''
+        \item Kernel only homogenization takes all non-fuel layers of the TRISO and homogenizes them, by volume fraction, into the compacts' background graphite and then packs UCO kernels into the background
         \begin{itemize}
             \item Keeps the same original kernel positions as fully explicit
         \end{itemize}
         \item Full volume homogenization makes one material per compact with the all the individual components mixed by their original volume fraction in the fully explicit case.
+        \item Comparing both homogenizations to the fully explicit case for the assembly model can be used as a basis for deciding how proceed with a full core model.
     \end{itemize}
 \end{frame}
 
@@ -195,19 +216,74 @@
 %%----------------------------------------------------------------------------%%
 \section{OpenMC Model}
 
-\begin{frame}{Slice Plots}
-    \begin{figure}
-        \includegraphics[height=0.8\textheight]{figures/gcmr_slice.png}
-    \end{figure}
+\begin{frame}{OpenMC Model}
+    \begin{minipage}[t]{0.2\linewidth}
+        \begin{figure}
+            \includegraphics[height=0.7\textheight]{figures/yz_slice.png}
+            \caption{YZ slice of reactor}
+        \end{figure}
+        \end{minipage}
+    \begin{minipage}[t]{0.35\linewidth}
+        \begin{figure}
+            \includegraphics[height=0.7\textheight]{figures/gcmr_slice.png}
+            \caption{XY slice of reactor}
+        \end{figure}
+    \end{minipage}
+    \hfill%
+    \begin{minipage}[t]{0.4\linewidth}
+        \begin{itemize}
+        \item 8 axial layers in the core, 2 axial layers per reflector
+        \item pin pitch = 2cm 
+        \item periodic BC on hexagonal boundary
+        \item vacuum BC at top and bottom 
+        \item Materials 
+            \begin{itemize}
+                \item gray = graphite
+                \item blue = helium 
+                \item red = YH2 moderator
+                \item gold = FeCrAL envelope
+                \item green = B4C poison spheres or B4C control rod
+                \item purple dots = TRISO
+                \item peach = upper/lower BeO reflectors
+            \end{itemize}
+        \end{itemize}
+    \end{minipage}
 \end{frame}
 
 
-\begin{frame}{Depletion Simulation Definitions}
-    \begin{itemize}
-        \item
-    \end{itemize}
+\begin{frame}{System Parameters}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{|c|c|c|}
+        \hline 
+        & physical parameters & \\
+        \hline
+        fuel radius & poison radius & moderator radius  \\
+        0.90 cm & 0.25 cm   & 0.843 cm  \\
+        \hline
+        control radius & coolant radius & FeCrAl thickness \\
+        0.99 cm    & 0.60 cm & 0.05 cm \\
+        \hline
+        Cr coating thickness & fuel packing fraction & poison packing fraction \\
+        0.007 cm & 0.4 -  & 0.25 - \\
+        \hline
+        reflector height & core height & enrichment \\
+        \hline
+        20 cm & 160 cm &  19.95\% \\
+        \hline
+        inlet temperature & outlet temperature & outlet pressure \\
+        \hline
+        873.15 K & 1133.65 K  & 7 MPa \\
+        \hline
+        \end{tabular}
+        \vspace{-0.25cm}
+        \label{tab:dimensions}
+    \end{table}
 \end{frame}
 
+\begin{frame}{Depletion Simulation Parameters}
+
+\end{frame}
 %%----------------------------------------------------------------------------%%
 %% Section 3
 %%----------------------------------------------------------------------------%%
