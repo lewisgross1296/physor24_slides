@@ -125,140 +125,163 @@
 %%----------------------------------------------------------------------------%%
 \section{Virtual Test Bed Gas-Cooled Microreactor}
 \hypersetup{citecolor=white}
+\begin{withoutheadline}
 \begin{frame}{Virtual Test Bed \cite{vtb2023}}
     \begin{figure}
         \centering
-        \includegraphics[width=0.65\linewidth]{figures/nric_logo.png}
+        \includegraphics[width=0.6\linewidth]{figures/nric_logo.png}
     \end{figure}
     \begin{figure}
         \centering
         \includegraphics[width=0.6\linewidth]{figures/NEAMS.png}
     \end{figure}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\linewidth]{figures/moose_logo.png}
+    \end{figure}
 \end{frame}
+\end{withoutheadline}
 
-
+\begin{withoutheadline}
 \begin{frame}{Microreactors \cite{INL_MR}}
     \begin{figure}
         \centering
-        \includegraphics[width=0.95\linewidth]{figures/INL_MR.png}
+        \includegraphics[width=\linewidth]{figures/INL_MR.png}
     \end{figure}
 \end{frame}
+\end{withoutheadline}
 \hypersetup{citecolor=black}
 
-\begin{frame}{TRISO Fuel}
-    \begin{minipage}[t]{0.45\linewidth}
+\begin{withoutheadline}
+\begin{frame}{High Temperature Gas Reactors and TRISO Fuel}
+    \vspace*{-0.2cm}
+    \begin{minipage}[t]{0.55\linewidth}
         \pause
         \begin{figure}
             \centering
-            \includegraphics[width=0.9\linewidth]{figures/TRISO_diagram_Zhou_Tang.png}
-            \caption{Layers from innermost to outermost: fuel kernel, buffer, Inner PyC, SiC,Outer PyC \cite{zhou_tang}.}
+            \includegraphics[width=\linewidth]{figures/TRISO_diagram_Zhou_Tang.png}
+            \caption{Image from \cite{zhou_tang}}
         \end{figure}
     \end{minipage}
     \hfill%
-    \begin{minipage}[t]{0.45\linewidth}
+    \begin{minipage}[t]{0.4\linewidth}
         \pause
+        \large
         \begin{itemize}
-            \item<3-> Common fuel for HTGRs
-            \item<4-> UCO fuel kernel radius 212.5 microns
-            \item<5-> Outer PyC radius 427.5 microns
-            \item<6-> Melting temperature significantly higher than operational temperatures \cite{zhou_tang}
-            \item<7-> Designed to contain fission products \cite{zhou_tang}
-            \item<8-> Typically packed into graphite compacts or into spherical pebbles for PBRs
-            \item<9-> TRISO modeling challenges
+            \item <3-> TRISO fuel synergizes with HTGRs
             \begin{itemize}
-                \item<10-> Five surfaces per TRISO
-                \item<11-> Many TRISOs per reactor
+                \item <3-> Melting temperature significantly higher than operational temperatures \cite{zhou_tang}
+                \item <3-> Designed to contain fission products \cite{zhou_tang}
+                \item <3-> Typically packed into graphite compacts or into spherical pebbles for PBRs
+            \end{itemize}
+            \item <4-> TRISO modeling challenges
+            \begin{itemize}
+                \item <4-> Five surfaces per TRISO
+                \item <4-> Causes very many surface crossings per history
+                \item <4-> High memory requirement for fully explicit representation
             \end{itemize}
         \end{itemize}
+        \normalsize
     \end{minipage}
 \end{frame}
+\end{withoutheadline}
 
+\begin{withoutheadline}
 \begin{frame}{Virtual Test Bed Gas Cooled Microreactor (VTB GCMR)}
     \pause
+    \Large
     \begin{minipage}[t]{0.525\linewidth}
         \begin{itemize}
-            \item<2-> Existing VTB GCMR simulations
+            \item<2-> Existing VTB GCMR simulations using MOOSE tools
             \begin{itemize}
-                \item<3-> Preliminary multiphysics models: Griffin-BISON-SAM \cite{Stauff-preliminary-applications-2021,Stauff-applications-2022,Abdelhameed-ANS-2022}
-                \item<4-> Dynamic multiphysics simulations: flow blockage and Reactivity Insertion Accident \cite{HF_MRs_ANL}
-                \item<5-> Balance of plant 1D thermal hydraulic simulation \cite{Duchnowski_plant_balance_2022}
+                \item<2-> Preliminary multiphysics models: Griffin-BISON-SAM \cite{Stauff-preliminary-applications-2021,Stauff-applications-2022,Abdelhameed-ANS-2022}
+                \item<2-> Dynamic multiphysics simulations: flow blockage and Reactivity Insertion Accident \cite{HF_MRs_ANL}
+                \item<2-> Balance of plant 1D thermal hydraulic simulation \cite{Duchnowski_plant_balance_2022}
             \end{itemize}
-            \item<6-> This work presents the first published OpenMC Model of the VTB GCMR
+            \item<3-> This work presents the first published OpenMC Model of the VTB GCMR
             \begin{itemize}
-                \item<7->Plans to add this work's model to the VTB this summer
+                \item<3->Plans to add this work's model to the VTB this summer
             \end{itemize}
-            \item<8-> For a full core model, it will be prohibitively expensive to model every TRISO explicitly
+            \item<4-> For a full core model, it will be prohibitively expensive to model every TRISO explicitly: $O(10^{13})$ in this reactor
         \end{itemize}
     \end{minipage}
     \hfill%
     \begin{minipage}[t]{0.425\linewidth}
-        \pause
         \begin{figure}
             \centering
-            \includegraphics[width=0.875\linewidth]{figures/gcmr_preliminary_mutliapps.png}
+            \includegraphics[width=\linewidth]{figures/gcmr_preliminary_mutliapps.png}
             \caption{MultiApp hierarchy of preliminary GCMR models. Image from \cite{Abdelhameed-ANS-2022}.}
         \end{figure}
+    \normalsize
     \end{minipage}
-
 \end{frame}
+\end{withoutheadline}
 
+\begin{withoutheadline}
 \begin{frame}{Research Goal}
     \pause
     \begin{itemize}
-        \item<2-> \textbf{What degree of explicitness is required to represent TRISO for a full-core GCMR model?}
-        \item<3-> To answer this question, varying degrees of homogenization were used in an infinite-assembly depletion model, computing \kinf~as a function of burnup up to 29 GWd/tonne-U.
-        \item<4-> Since this reactor is intended for load-following, a burnup simulation was conducted at 100\%, 50\%, and 10\% of full power (225 KWt).
-        \item<5-> Two homogenization strategies: ``\textbf{kernel only}'' and ``\textbf{full volume}''
-        \item<6-> Kernel only homogenizes all non-fuel TRISO layers by volume fraction into the background graphite.
-        \item<7-> It then packs UCO kernels with the same original positions as in the fully explicit case.
-        \item<8-> Full volume homogenizes all material within a compact by their volume fraction into a single material.
-        \item<9-> Comparing both homogenizations to the fully explicit case can be used as a basis for deciding how proceed with a full core model.
+        \item<2-> \textbf{What degree of TRISO homogenization can compute \kinf~within a reasonable $\Delta \rho$ for a full-core GCMR model?}
+        \item<3-> Two homogenization strategies:``\textbf{kernel only}'' and ``\textbf{full volume}''
+        \begin{figure}
+            \pause
+            \begin{subfigure}{0.3\linewidth}
+                \centering
+                \includegraphics[width=\linewidth]{figures/explicit_viz.png}
+                \caption{explicit}
+            \end{subfigure}
+            \begin{subfigure}{0.3\linewidth}
+                \centering
+                \includegraphics[width=\linewidth]{figures/kern_viz.png}
+                \caption{kernel only}
+            \end{subfigure}
+            \begin{subfigure}{0.3\linewidth}
+                \centering
+                \includegraphics[width=\linewidth]{figures/homog_viz.png}
+                \caption{full volume}
+            \end{subfigure}
+        \end{figure}
+        \item<4-> Burnup simulations at 100\%, 50\%, and 10\% of full power (225 KWt).
+        \item<4-> Compare each \kinf~as a basis for deciding how proceed with a full core model.
     \end{itemize}
 \end{frame}
+\end{withoutheadline}
 
 %%----------------------------------------------------------------------------%%
 %% Section 2
 %%----------------------------------------------------------------------------%%
 \section{OpenMC Model}
-
-\begin{frame}{OpenMC Model}
-    \begin{minipage}[t]{0.2\linewidth}
+\begin{withoutheadline}
+\begin{frame}{OpenMC Infinite Assembly Model: images via openmc-plotter}
+    \begin{minipage}[t]{0.225\linewidth}
         \pause
         \begin{figure}
-            \includegraphics[height=0.7\textheight]{figures/yz_slice.png}
+            \includegraphics[height=0.8\textheight]{figures/yz_slice.png}
             \caption{YZ slice of reactor}
         \end{figure}
     \end{minipage}
-    \begin{minipage}[t]{0.365\linewidth}
+    \begin{minipage}[t]{0.45\linewidth}
         \pause
         \begin{figure}
-            \includegraphics[height=0.7\textheight]{figures/gcmr_slice.png}
+            \includegraphics[height=0.8\textheight]{figures/gcmr_slice.png}
             \caption{XY slice of reactor}
         \end{figure}
     \end{minipage}
     \hfill%
-    \begin{minipage}[t]{0.385\linewidth}
+    \begin{minipage}[t]{0.3\linewidth}
+        \Large
         \begin{itemize}
-        \item<4-> materials in XY slice
-        \begin{itemize}
-            \item<5-> gray = graphite
-            \item<6-> blue = helium
-            \item<7-> red = YH2 moderator
-            \item<8-> gold = FeCrAL envelope
-            \item<9-> green = B4C poison spheres
-            \item<10-> purple dots = TRISO
+            \item<4-> spatial depletion scheme
+            \item<4-> 3-way radial symmetry cloning scheme
+            \item<4-> 8 axial layers in the core
+            \item<4-> 2 axial layers per reflector
         \end{itemize}
-        \item<11-> 8 axial layers in the core
-        \item<12-> 2 axial layers per reflector
-        \item<13-> pin pitch = 2cm
-        \item<14-> periodic BC on hexagonal boundary
-        \item<15-> vacuum BC at z = 0, z = 200 cm
-        \item<16-> 3-way symmetry cloning scheme
-        \item<17-> images via openmc-plotter
-        \end{itemize}
+        \normalsize
     \end{minipage}
 \end{frame}
+\end{withoutheadline}
 
+\begin{withoutheadline}
 \begin{frame}{System Parameters}
     \begin{table}[h]
         \centering
@@ -293,86 +316,40 @@
         \label{tab:operational_params}
     \end{table}
 \end{frame}
+\end{withoutheadline}
 
-\begin{frame}{Depletion Theory}
-    \pause
-    \begin{itemize}
-        \item<2-> Depletion simulations numerically solve the Bateman equations for the number densities $N_{i}(t)$:
-        \begin{multline} \label{eq:batemen}
-            \frac{dN_{i}}{dt} =
-            \sum_{j} \bigg[\int_{0}^{\infty} \sigma_{j\rightarrow{i}}(E,t)\phi(E,t)dE + \lambda_{j\rightarrow{i}}\bigg]N_{j}(t) \\
-            -\bigg[\int_{0}^{\infty} \sigma_{i}(E,t)\phi(E,t)dE
-            +\sum_{j}\lambda_{i\rightarrow{j}}\bigg] N_{i}(t).
-        \end{multline}
-        \begin{itemize}
-            \item<3-> $\sigma_{j\rightarrow{i}}(E,t)$ = transmutation cross section of isotope $j$ that produces isotope $i$ at energy $E$ at time $t$
-            \item<4-> $\phi(E,t)$ = energy and time dependent flux
-            \item<5-> $\lambda_{j\rightarrow{i}}$ = decay constants for decay modes in nuclide $j$ that produce nuclide $i$
-        \end{itemize}
-        \item<6-> We can represent the system of equations in matrix form to solve for a nuclide vector $\textbf{N}(t)\in\mathbb{R}^{n}$
-        \begin{equation} \label{eq:burnup matrix odes}
-            \frac{d\textbf{N}}{dt} =
-            \textbf{A}(\textbf{N},t) \textbf{N}
-            \QWITH
-            \textbf{N}(0) = \textbf{N}_{0},
-        \end{equation}
-        where $\textbf{A}\in\mathbb{R}^{n\times n}$ is commonly referred to as the burnup matrix.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Depletion Theory}
-    \pause
-    \begin{itemize}
-        \item<2-> Assuming $\textbf{A}(\textbf{N},t)$ changes slowly enough over time that it can be approximated as constant within a timestep (quasi steady-state assumption) gives
-        \begin{equation} \label{eq:separable burnup matrix odes}
-            \frac{d\textbf{N}}{dt} =
-            \textbf{A} \textbf{N}
-            \QWITH
-            \textbf{N}(0) = \textbf{N}_{0}.
-        \end{equation}
-        \item<3-> The solution to which is
-        \begin{equation} \label{eq:separation solution}
-            \textbf{N}(t) = e^{\textbf{A}t} \textbf{N}_{0}.
-        \end{equation}
-        \item<4-> Since \textbf{A} technically does change in time (via $\textbf{N}(t)$ changing), it needs to be updated accordingly.
-        \vspace*{0.4cm}
-        \item<5-> Solving (\ref{eq:separable burnup matrix odes}) numerically involves two components \cite{romano-depletion-2021}:
-        \begin{enumerate}
-            \item<6-> Using a numerical method to integrate the matrix $\textbf{A}$ in (\ref{eq:separable burnup matrix odes}) forward in time. This usually involves taking one or more matrix exponential.
-            \item<7-> Evaluating the matrix exponential $\exp(\textbf{A}t)$ or the action of the matrix exponential on a vector of nuclide concentrations.
-        \end{enumerate}
-    \end{itemize}
-\end{frame}
-
+\begin{withoutheadline}
 \begin{frame}{OpenMC Depletion Settings}
     \pause
     \begin{itemize}
         \item<2-> Predictor-Corrector time integration scheme
         \begin{itemize}
-            \item<3-> requires two transport solves per time step
-            \item<4-> Constant Extrapolation/Constant Midpoint scheme from Isotalo et al. \cite{isotalo_comparison_2015}
-            \item<5-> $k$-eigenvalue simulations used 25 inactive and 75 active batches with 10000 particles per batch
-            \item<6-> continuous energy cross sections from ENDF-B-VII.1
+            \item<2-> requires two transport solves per time step
+            \item<2-> Constant Extrapolation/Constant Midpoint scheme from Isotalo et al. \cite{isotalo_comparison_2015}
+            \item<2-> 25 inactive and 75 active batches with 10000 particles per batch
+            \item<2-> continuous energy cross sections from ENDF-B-VII.1
         \end{itemize}
-        \item<7-> Chain XML file
+        \item<3-> Chain XML file
         \begin{itemize}
-            \item<8-> contains transmutation and decay data necessary to compute the burnup matrix
-            \item<9-> based on the CASL project \cite{CASL-report}, which uses a thermal spectrum to compute the burnup matrix
-            \item<10-> provided by OpenMC \cite{openmc-chains}
+            \item<3-> contains transmutation and decay data necessary to compute the burnup matrix
+            \item<3-> based on the CASL project \cite{CASL-report}, which uses a thermal spectrum to compute the burnup matrix
+            \item<3-> provided by OpenMC \cite{openmc-chains}
         \end{itemize}
-        \item<11-> Time Steps - kept total burnup the same at each step in the simulation
+        \item<4-> Time Steps - kept total burnup the same at each step in the simulation
         \begin{itemize}
-            \item<12-> Full power time steps: \texttt{[1]*5 + [5]*3 + [15]*3 + [60]*17} (days)
-            \item<13-> Half power time steps: \texttt{[2]*5 + [10]*3 + [30]*3 + [120]*17} (days)
-            \item<14-> Tenth power time steps: \texttt{[10]*5 + [50]*3 + [150]*3 + [600]*17} (days)
+            \item<4-> Full power time steps: \texttt{[1]*5 + [5]*3 + [15]*3 + [60]*17} (days)
+            \item<4-> Half power time steps: \texttt{[2]*5 + [10]*3 + [30]*3 + [120]*17} (days)
+            \item<4-> Tenth power time steps: \texttt{[10]*5 + [50]*3 + [150]*3 + [600]*17} (days)
         \end{itemize}
     \end{itemize}
 \end{frame}
+\end{withoutheadline}
 %%----------------------------------------------------------------------------%%
 %% Section 3
 %%----------------------------------------------------------------------------%%
 \section{Results and Discussion}
 
+\begin{withoutheadline}
 \begin{frame}{Fully-explicit \kinf~versus burnup with $2\sigma$ error bars up to $\sim$29 GWd/tonne-U}
     \begin{figure}
         \vspace*{-0.4cm}
@@ -381,7 +358,9 @@
         \label{fig:kinf_full_explicit_results}
     \end{figure}
 \end{frame}
+\end{withoutheadline}
 
+\begin{withoutheadline}
 \begin{frame}{Comparing Eigenvalues}
     \pause
     \Large
@@ -408,27 +387,13 @@
     \end{itemize}
     \normalsize
 \end{frame}
-
-\begin{frame}{$\Delta \rho$ with $2\sigma$ error as a function of burnup  up to $\sim$29 GWd/tonne-U}
-    \begin{figure}
-        \centering
-        \begin{subfigure}{0.495\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figures/explicit_minus_homog.png}
-        \end{subfigure}
-        \begin{subfigure}{0.495\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figures/explicit_minus_kern.png}
-        \end{subfigure}
-        \label{fig:pcm_diffs}
-    \end{figure}
-\end{frame}
-
+\end{withoutheadline}
 
 %%----------------------------------------------------------------------------%%
 %% Section 4
 %%----------------------------------------------------------------------------%%
 \section{Next Steps}
+\begin{withoutheadline}
 \begin{frame}{Two-layer TRISO Homogenization}
     \pause
     \begin{itemize}
@@ -443,9 +408,10 @@
             \item<7-> Accordingly, more neutrons will escape the resonance region than should.
             \item<8-> This explains why $\Delta \rho$ is negative for explicit minus kernel.
         \end{itemize}
-        \item<9-> A next iteration on fuel homogenization would be to leave the graphite background alone and only homogenize within a TRISO to create a \textbf{two layer} homogenization that packs TRISO fuel particles with a UCO fuel kernel at the center and all other layers homogenized together. 
+        \item<9-> A next iteration on fuel homogenization would be to leave the graphite background alone and only homogenize within a TRISO to create a \textbf{two layer} homogenization that packs TRISO fuel particles with a UCO fuel kernel at the center and all other layers homogenized together.
     \end{itemize}
 \end{frame}
+\end{withoutheadline}
 
 %%----------------------------------------------------------------------------%%`'
 %% Bibliography
@@ -491,6 +457,24 @@
 
 \appendix
 
+\begin{withoutheadline}
+\begin{frame}{$\Delta \rho$ with $2\sigma$ error as a function of burnup  up to $\sim$29 GWd/tonne-U}
+    \begin{figure}
+        \centering
+        \begin{subfigure}{0.495\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/explicit_minus_homog.png}
+        \end{subfigure}
+        \begin{subfigure}{0.495\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/explicit_minus_kern.png}
+        \end{subfigure}
+        \label{fig:pcm_diffs}
+    \end{figure}
+\end{frame}
+\end{withoutheadline}
+
+\begin{withoutheadline}
 \begin{frame}{Equilibrium Xenon-135 Number Densities}
     \LARGE
     \begin{table}
@@ -510,6 +494,7 @@
     \end{itemize}
 \end{frame}
 
+\begin{withoutheadline}
 \begin{frame}{Plutonium 241 at Each Power for the Fully Explicit Case}
     \begin{figure}
         \vspace*{-0.4cm}
@@ -517,5 +502,6 @@
             \includegraphics[height=0.9\textheight]{figures/explicit_Pu_241.png}
     \end{figure}
 \end{frame}
+\end{withoutheadline}
 
 \end{document}
