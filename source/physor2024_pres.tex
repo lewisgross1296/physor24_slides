@@ -154,17 +154,16 @@
 
 \begin{withoutheadline}
 \begin{frame}{High Temperature Gas Reactors and TRISO Fuel}
-    \vspace*{-0.2cm}
-    \begin{minipage}[t]{0.55\linewidth}
+    \begin{minipage}[t]{0.5\linewidth}
         \pause
         \begin{figure}
             \centering
-            \includegraphics[width=\linewidth]{figures/TRISO_diagram_Zhou_Tang.png}
+            \includegraphics[width=0.85\linewidth]{figures/TRISO_diagram_Zhou_Tang.png}
             \caption{Image from \cite{zhou_tang}}
         \end{figure}
     \end{minipage}
     \hfill%
-    \begin{minipage}[t]{0.4\linewidth}
+    \begin{minipage}[t]{0.45\linewidth}
         \pause
         \large
         \begin{itemize}
@@ -189,24 +188,26 @@
 \begin{withoutheadline}
 \begin{frame}{Virtual Test Bed Gas Cooled Microreactor (VTB GCMR)}
     \pause
-    \Large
-    \begin{minipage}[t]{0.525\linewidth}
+    \LARGE
+    \begin{minipage}[t]{0.475\linewidth}
         \begin{itemize}
-            \item<2-> Existing VTB GCMR simulations using MOOSE tools
+            \item<2-> Existing simulations using MOOSE tools
             \begin{itemize}
-                \item<2-> Preliminary multiphysics models: Griffin-BISON-SAM \cite{Stauff-preliminary-applications-2021,Stauff-applications-2022,Abdelhameed-ANS-2022}
-                \item<2-> Dynamic multiphysics simulations: flow blockage and Reactivity Insertion Accident \cite{HF_MRs_ANL}
+                \item<2-> Multiphysics models, including accident and load-following transients: Griffin-BISON-SAM \cite{Stauff-applications-2022,Abdelhameed-ANS-2022, HF_MRs_ANL}
                 \item<2-> Balance of plant 1D thermal hydraulic simulation \cite{Duchnowski_plant_balance_2022}
             \end{itemize}
             \item<3-> This work presents the first published OpenMC Model of the VTB GCMR
             \begin{itemize}
                 \item<3->Plans to add this work's model to the VTB this summer
             \end{itemize}
-            \item<4-> For a full core model, it will be prohibitively expensive to model every TRISO explicitly: $O(10^{13})$ in this reactor
+            \item<4-> For a full core model, it will be prohibitively expensive to model every TRISO explicitly
+            \begin{itemize}
+                \item<4-> $O(10^{13})$ in this reactor
+            \end{itemize}
         \end{itemize}
     \end{minipage}
     \hfill%
-    \begin{minipage}[t]{0.425\linewidth}
+    \begin{minipage}[t]{0.47\linewidth}
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{figures/gcmr_preliminary_mutliapps.png}
@@ -221,7 +222,7 @@
 \begin{frame}{Research Goal}
     \pause
     \begin{itemize}
-        \item<2-> \textbf{What degree of TRISO homogenization can compute \kinf~within a reasonable $\Delta \rho$ for a full-core GCMR model?}
+        \item<2-> \textbf{What degree of TRISO homogenization is allowable to accurately compute the k-eigenvalue as a function of burnup for whole core Monte Carlo modeling?}
         \item<3-> Two homogenization strategies:``\textbf{kernel only}'' and ``\textbf{full volume}''
         \begin{figure}
             \pause
@@ -252,7 +253,8 @@
 %%----------------------------------------------------------------------------%%
 \section{OpenMC Model}
 \begin{withoutheadline}
-\begin{frame}{OpenMC Infinite Assembly Model: images via openmc-plotter}
+\hypersetup{citecolor=white}
+\begin{frame}{OpenMC Infinite Assembly Model: Images via openmc-plotter \cite{openmc-plotter}}
     \begin{minipage}[t]{0.225\linewidth}
         \pause
         \begin{figure}
@@ -263,7 +265,7 @@
     \begin{minipage}[t]{0.45\linewidth}
         \pause
         \begin{figure}
-            \includegraphics[height=0.8\textheight]{figures/gcmr_slice.png}
+            \includegraphics[height=0.8\textheight]{figures/gcmr_labeled_slice.png}
             \caption{XY slice of reactor}
         \end{figure}
     \end{minipage}
@@ -279,48 +281,13 @@
         \normalsize
     \end{minipage}
 \end{frame}
-\end{withoutheadline}
-
-\begin{withoutheadline}
-\begin{frame}{System Parameters}
-    \begin{table}[h]
-        \centering
-        \begin{tabular}{|c|c|c|}
-            \hline
-            \multicolumn{3}{|c|}{\textbf{geometric parameters}} \\
-            \hline
-            fuel compact radius & poison compact radius & moderator compact radius  \\
-            0.90 cm & 0.25 cm   & 0.843 cm  \\
-            \hline
-            control compact radius & coolant compact radius & FeCrAl thickness \\
-            0.99 cm    & 0.60 cm & 0.05 cm \\
-            \hline
-            Cr coating thickness & reflector heights & core height \\
-            \hline
-            0.007 cm & 20 cm & 160 cm \\
-            \hline
-        \multicolumn{3}{c}{} \\
-        \multicolumn{3}{c}{} \\
-        \hline
-        \multicolumn{3}{|c|}{\textbf{operation and design parameters}} \\
-        \hline
-        fuel packing fraction & poison packing fraction  & enrichment \\
-        \hline
-        0.4 -  & 0.25 - &  19.95\% \\
-        \hline
-        inlet temperature & outlet temperature & outlet pressure \\
-        \hline
-        873.15 K & 1133.65 K  & 7 MPa \\
-        \hline
-        \end{tabular}
-        \label{tab:operational_params}
-    \end{table}
-\end{frame}
+\hypersetup{citecolor=black}
 \end{withoutheadline}
 
 \begin{withoutheadline}
 \begin{frame}{OpenMC Depletion Settings}
     \pause
+    \LARGE
     \begin{itemize}
         \item<2-> Predictor-Corrector time integration scheme
         \begin{itemize}
@@ -335,13 +302,13 @@
             \item<3-> based on the CASL project \cite{CASL-report}, which uses a thermal spectrum to compute the burnup matrix
             \item<3-> provided by OpenMC \cite{openmc-chains}
         \end{itemize}
-        \item<4-> Time Steps - kept total burnup the same at each step in the simulation
+        \item<4-> Time Steps
         \begin{itemize}
             \item<4-> Full power time steps: \texttt{[1]*5 + [5]*3 + [15]*3 + [60]*17} (days)
-            \item<4-> Half power time steps: \texttt{[2]*5 + [10]*3 + [30]*3 + [120]*17} (days)
-            \item<4-> Tenth power time steps: \texttt{[10]*5 + [50]*3 + [150]*3 + [600]*17} (days)
+            \item<4-> Burnup-consistent time steps for other powers
         \end{itemize}
     \end{itemize}
+    \normalsize
 \end{frame}
 \end{withoutheadline}
 %%----------------------------------------------------------------------------%%
@@ -354,7 +321,7 @@
     \begin{figure}
         \vspace*{-0.4cm}
         \centering
-            \includegraphics[height=0.9\textheight]{figures/expl_kinf_vs_bu.png}
+            \includegraphics[height=\textheight]{figures/expl_kinf_vs_bu.png}
         \label{fig:kinf_full_explicit_results}
     \end{figure}
 \end{frame}
@@ -398,18 +365,29 @@
     \pause
     \begin{itemize}
         \item<2-> While the kernel only eigenvalue computation outperforms the fully homogenized in terms of accuracy, it would be desirable to lower $\Delta \rho$ below 100 pcm.
-        \item<3-> One potential source of error in the kernel only model is the effect of moving SiC.
-        \item<4-> The kernel only model moves SiC further from the fuel than it exists in the explicit model.
-        \begin{itemize}
-            \item<5-> Typically, SiC is located in a spherical region 175 - 215 microns away from fuel.
-        \end{itemize}
-        \item<6-> Si has a much higher $\alpha = (\frac{A-1}{A+1})^2$ than C, so moving it away from fuel and replacing it with more graphite than in the explicit case increases the thermalization of neutrons near the fuel.
-        \begin{itemize}
-            \item<7-> Accordingly, more neutrons will escape the resonance region than should.
-            \item<8-> This explains why $\Delta \rho$ is negative for explicit minus kernel.
-        \end{itemize}
-        \item<9-> A next iteration on fuel homogenization would be to leave the graphite background alone and only homogenize within a TRISO to create a \textbf{two layer} homogenization that packs TRISO fuel particles with a UCO fuel kernel at the center and all other layers homogenized together.
+        \item<3-> The kernel only model moves SiC further from the fuel than it exists in the explicit model.
+        \item<3-> Si is less efficient at thermalizing neutrons and absorbs more neutrons than C
+        \item<4-> A next iteration on fuel homogenization would be to create a \textbf{two layer} homogenization
     \end{itemize}
+    \begin{figure}
+        \pause
+        \pause
+        \begin{subfigure}{0.3\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/explicit_viz.png}
+            \caption{explicit}
+        \end{subfigure}
+        \begin{subfigure}{0.3\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/kern_viz.png}
+            \caption{kernel only}
+        \end{subfigure}
+        \begin{subfigure}{0.3\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/2layer_viz.png}
+            \caption{two layer TRISO}
+        \end{subfigure}
+    \end{figure}
 \end{frame}
 \end{withoutheadline}
 
@@ -443,31 +421,76 @@
 \end{withoutheadline}
 
 \begin{withoutheadline}
-    \LARGE
     \begin{frame}{Open Source Projects}
-        \begin{itemize}
-            \item OpenMC website: \href{https://openmc.org/}{https://openmc.org/}
-            \item OpenMC repository: \href{https://github.com/openmc-dev/openmc}{https://github.com/openmc-dev/openmc}
-            \item VTB: \href{https://mooseframework.inl.gov/virtual_test_bed/}{https://mooseframework.inl.gov/virtual\_test\_bed/}
-            \item VTB repository: \href{https://github.com/idaholab/virtual_test_bed}{https://github.com/idaholab/virtual\_test\_bed}
-            \item Add me on LinkedIn (\href{https://www.linkedin.com/in/lewisgross1296}{lewisgross1296}) and GitHub (\href{https://github.com/lewisgross1296}{lewisgross1296})!
-        \end{itemize}
+        \begin{minipage}[t]{0.43\linewidth}
+            \begin{itemize}
+                \item OpenMC website: \href{https://openmc.org}{https://openmc.org}
+                \item OpenMC repository: \href{https://github.com/openmc-dev/openmc}{https://github.com/openmc-dev/openmc}
+                \item OpenMC plotter: \href{https://github.com/openmc-dev/plotter}{https://github.com/openmc-dev/plotter}
+                \item VTB: \href{https://mooseframework.inl.gov/virtual_test_bed}{https://mooseframework.inl.gov/virtual\_test\_bed}
+                \item VTB repository: \href{https://github.com/idaholab/virtual_test_bed}{https://github.com/idaholab/virtual\_test\_bed}
+                \item Add me on LinkedIn (\href{https://www.linkedin.com/in/lewisgross1296}{lewisgross1296}) and GitHub (\href{https://github.com/lewisgross1296}{lewisgross1296})!
+            \end{itemize}
+        \end{minipage}
+        \hfill% 
+        \begin{minipage}[t]{0.54\linewidth}
+            \begin{figure}
+                \includegraphics[width=0.9\linewidth]{figures/gcmr_slice.png}
+            \end{figure}
+        \end{minipage}
     \end{frame}
 \end{withoutheadline}
 
 \appendix
 
 \begin{withoutheadline}
+    \begin{frame}{System Parameters}
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{|c|c|c|}
+                \hline
+                \multicolumn{3}{|c|}{\textbf{geometric parameters}} \\
+                \hline
+                fuel compact radius & poison compact radius & moderator compact radius  \\
+                \hline
+                0.90 cm & 0.25 cm   & 0.843 cm  \\
+                \hline
+                control compact radius & coolant compact radius & FeCrAl thickness \\
+                \hline
+                0.99 cm    & 0.60 cm & 0.05 cm \\
+                \hline
+                Cr coating thickness & reflector heights & core height \\
+                \hline
+                0.007 cm & 20 cm & 160 cm \\
+                \hline
+            \multicolumn{3}{c}{} \\
+            \multicolumn{3}{c}{} \\
+            \hline
+            \multicolumn{3}{|c|}{\textbf{operation and design parameters}} \\
+            \hline
+            fuel packing fraction & poison packing fraction  & enrichment \\
+            \hline
+            40\%  & 25\% &  19.95\% \\
+            \hline
+            inlet temperature & outlet temperature & outlet pressure \\
+            \hline
+            873.15 K & 1133.65 K  & 7 MPa \\
+            \hline
+            \end{tabular}
+            \label{tab:operational_params}
+        \end{table}
+    \end{frame}
+    \end{withoutheadline}
+
+\begin{withoutheadline}
 \begin{frame}{$\Delta \rho$ with $2\sigma$ error as a function of burnup  up to $\sim$29 GWd/tonne-U}
     \begin{figure}
-        \centering
-        \begin{subfigure}{0.495\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figures/explicit_minus_homog.png}
+        \hspace*{-1.35cm}
+        \begin{subfigure}{0.5\linewidth}
+            \includegraphics[width=1.175\linewidth]{figures/explicit_minus_homog.png}
         \end{subfigure}
-        \begin{subfigure}{0.495\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figures/explicit_minus_kern.png}
+        \begin{subfigure}{0.5\linewidth}
+            \includegraphics[width=1.175\linewidth]{figures/explicit_minus_kern.png}
         \end{subfigure}
         \label{fig:pcm_diffs}
     \end{figure}
@@ -489,10 +512,11 @@
         \label{tab:xenons}
     \end{table}
     \begin{itemize}
-        \item These equilibrium values explain the observed trend at fresh fuel -- and for much of the simulation -- that lower power with the same total burnup has more excess Reactivity.
+        \item These equilibrium values explain the observed trend at fresh fuel -- and for much of the simulation -- that lower power with the same total burnup has more excess reactivity.
         \item The higher the power, the more Xenon-135 is produced during the initial jump to steady state, contributing to a larger negative reactivity insertion.
     \end{itemize}
 \end{frame}
+\end{withoutheadline}
 
 \begin{withoutheadline}
 \begin{frame}{Plutonium 241 at Each Power for the Fully Explicit Case}
