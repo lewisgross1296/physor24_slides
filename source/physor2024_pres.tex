@@ -129,15 +129,15 @@
 \begin{frame}{Virtual Test Bed \cite{vtb2023}}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\linewidth]{figures/nric_logo.png}
+        \includegraphics[width=0.5\linewidth]{figures/nric_logo.png}
     \end{figure}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\linewidth]{figures/NEAMS.png}
+        \includegraphics[width=0.5\linewidth]{figures/NEAMS.png}
     \end{figure}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\linewidth]{figures/moose_logo.png}
+        \includegraphics[width=0.5\linewidth]{figures/moose_logo.png}
     \end{figure}
 \end{frame}
 \end{withoutheadline}
@@ -145,8 +145,9 @@
 \begin{withoutheadline}
 \begin{frame}{Microreactors \cite{INL_MR}}
     \begin{figure}
+        \pause
         \centering
-        \includegraphics[width=\linewidth]{figures/INL_MR.png}
+        \includegraphics[width=0.8\linewidth]{figures/INL_MR.png}
     \end{figure}
 \end{frame}
 \end{withoutheadline}
@@ -154,27 +155,29 @@
 
 \begin{withoutheadline}
 \begin{frame}{High Temperature Gas Reactors and TRISO Fuel}
-    \begin{minipage}[t]{0.5\linewidth}
+    \begin{minipage}[t]{0.4\linewidth}
         \pause
         \begin{figure}
             \centering
-            \includegraphics[width=0.85\linewidth]{figures/TRISO_diagram_Zhou_Tang.png}
+            \includegraphics[width=0.9\linewidth]{figures/TRISO_diagram_Zhou_Tang.png}
             \caption{Image from \cite{zhou_tang}}
         \end{figure}
     \end{minipage}
     \hfill%
-    \begin{minipage}[t]{0.45\linewidth}
+    \begin{minipage}[t]{0.575\linewidth}
         \pause
-        \large
+        \LARGE
         \begin{itemize}
             \item <3-> TRISO fuel synergizes with HTGRs
             \begin{itemize}
+                \Large
                 \item <3-> Melting temperature significantly higher than operational temperatures \cite{zhou_tang}
                 \item <3-> Designed to contain fission products \cite{zhou_tang}
                 \item <3-> Typically packed into graphite compacts or into spherical pebbles for PBRs
             \end{itemize}
             \item <4-> TRISO modeling challenges
             \begin{itemize}
+                \Large
                 \item <4-> Five surfaces per TRISO
                 \item <4-> Causes very many surface crossings per history
                 \item <4-> High memory requirement for fully explicit representation
@@ -189,25 +192,28 @@
 \begin{frame}{Virtual Test Bed Gas Cooled Microreactor (VTB GCMR)}
     \pause
     \LARGE
-    \begin{minipage}[t]{0.475\linewidth}
+    \begin{minipage}[t]{0.55\linewidth}
         \begin{itemize}
             \item<2-> Existing simulations using MOOSE tools
             \begin{itemize}
-                \item<2-> Multiphysics models, including accident and load-following transients: Griffin-BISON-SAM \cite{Stauff-applications-2022,Abdelhameed-ANS-2022, HF_MRs_ANL}
+                \Large
+                \item<2-> Griffin-BISON-SAM multiphysics models, including accident and load-following transients:  \cite{Stauff-applications-2022,Abdelhameed-ANS-2022, HF_MRs_ANL}
                 \item<2-> Balance of plant 1D thermal hydraulic simulation \cite{Duchnowski_plant_balance_2022}
             \end{itemize}
             \item<3-> This work presents the first published OpenMC Model of the VTB GCMR
             \begin{itemize}
+                \Large
                 \item<3->Plans to add this work's model to the VTB this summer
             \end{itemize}
             \item<4-> For a full core model, it will be prohibitively expensive to model every TRISO explicitly
             \begin{itemize}
-                \item<4-> $O(10^{13})$ in this reactor
+                \Large
+                \item<4-> $O(10^{13})$ per assembly
             \end{itemize}
         \end{itemize}
     \end{minipage}
     \hfill%
-    \begin{minipage}[t]{0.47\linewidth}
+    \begin{minipage}[t]{0.4\linewidth}
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{figures/gcmr_preliminary_mutliapps.png}
@@ -219,10 +225,10 @@
 \end{withoutheadline}
 
 \begin{withoutheadline}
-\begin{frame}{Research Goal}
+\begin{frame}{Research Question}
     \pause
     \begin{itemize}
-        \item<2-> \textbf{What degree of TRISO homogenization is allowable to accurately compute the k-eigenvalue as a function of burnup for whole core Monte Carlo modeling?}
+        \item<2-> \textbf{In order to balance performance and fidelity, what degree of TRISO homogenization is allowable to accurately compute the k-eigenvalue as a function of burnup for whole core Monte Carlo modeling?}
         \item<3-> Two homogenization strategies:``\textbf{kernel only}'' and ``\textbf{full volume}''
         \begin{figure}
             \pause
@@ -242,8 +248,8 @@
                 \caption{full volume}
             \end{subfigure}
         \end{figure}
-        \item<4-> Burnup simulations at 100\%, 50\%, and 10\% of full power (225 KWt).
-        \item<4-> Compare each \kinf~as a basis for deciding how proceed with a full core model.
+        \item<4-> Burnup simulations at 100\%, 50\%, and 10\% of full power (225 KWt)
+        \item<4-> Compare each \kinf~as a basis for deciding how proceed with a full core model
     \end{itemize}
 \end{frame}
 \end{withoutheadline}
@@ -289,21 +295,20 @@
     \pause
     \LARGE
     \begin{itemize}
-        \item<2-> Predictor-Corrector time integration scheme
+        \item<2-> Constant Extrapolation/Constant Midpoint (CE/CM) time integration scheme from Isotalo et al. \cite{isotalo_comparison_2015}
         \begin{itemize}
-            \item<2-> requires two transport solves per time step
-            \item<2-> Constant Extrapolation/Constant Midpoint scheme from Isotalo et al. \cite{isotalo_comparison_2015}
+            \Large
             \item<2-> 25 inactive and 75 active batches with 10000 particles per batch
             \item<2-> continuous energy cross sections from ENDF-B-VII.1
         \end{itemize}
-        \item<3-> Chain XML file
+        \item<3-> CASL project \cite{CASL-report} chain XML file, provided by OpenMC \cite{openmc-chains}
         \begin{itemize}
-            \item<3-> contains transmutation and decay data necessary to compute the burnup matrix
-            \item<3-> based on the CASL project \cite{CASL-report}, which uses a thermal spectrum to compute the burnup matrix
-            \item<3-> provided by OpenMC \cite{openmc-chains}
+            \Large
+            \item<3-> Contains transmutation and decay data necessary to compute the burnup matrix
         \end{itemize}
         \item<4-> Time Steps
         \begin{itemize}
+            \Large
             \item<4-> Full power time steps: \texttt{[1]*5 + [5]*3 + [15]*3 + [60]*17} (days)
             \item<4-> Burnup-consistent time steps for other powers
         \end{itemize}
@@ -366,7 +371,7 @@
     \begin{itemize}
         \item<2-> While the kernel only eigenvalue computation outperforms the fully homogenized in terms of accuracy, it would be desirable to lower $\Delta \rho$ below 100 pcm.
         \item<3-> The kernel only model moves SiC further from the fuel than it exists in the explicit model.
-        \item<3-> Si is less efficient at thermalizing neutrons and absorbs more neutrons than C
+        \item<3-> Si is less efficient at thermalizing neutrons and absorbs more neutrons than C.
         \item<4-> A next iteration on fuel homogenization would be to create a \textbf{two layer} homogenization
     \end{itemize}
     \begin{figure}
